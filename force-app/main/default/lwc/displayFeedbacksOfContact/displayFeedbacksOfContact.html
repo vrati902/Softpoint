@@ -1,0 +1,39 @@
+<!--
+  @File Name          : displayFeedbacksOfContact.html
+  @Description        : 
+  @Author             : MakePositive
+  @Group              : 
+  @Last Modified By   : MakePositive
+  @Last Modified On   : 4/9/2020, 2:17:47 PM
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    4/8/2020   MakePositive     Initial Version
+-->
+<template>
+    <div class="slds-clearfix">
+    <div class="slds-float_right">
+        <lightning-button label="New" class="slds-m-left_x-small" title="Non-primary action" onclick={handleOpenModal}>
+        </lightning-button>  
+    </div>
+    </div>    
+    <template if:true={isOpenModal}>
+        <c-select-template onmodalchange={handleCloseModalChange}></c-select-template>
+    </template>
+    <lightning-accordion onsectiontoggle={handleChange} >
+        <template for:each={items} for:item='item'>
+            <lightning-accordion-section name={item.id} label={item.name} key={item.id} > 
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                    <tbody>
+                    <template for:each={tableValues} for:item='tableValue'>
+                       <tr key={tableValue.Id} class="slds-hint-parent" >
+                            <td>{tableValue.Template_Line_Item__r.Name}</td>
+                            <td>{tableValue.Template_Line_Item__r.Question__c}</td>
+                            <td>{tableValue.Value__c}</td>
+                       </tr>
+                    </template>
+                </tbody>
+                </table>
+            </lightning-accordion-section>
+        </template>
+    </lightning-accordion>
+</template>
